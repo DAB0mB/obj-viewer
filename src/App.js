@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-function App() {
+import Through from './components/helpers/Through';
+import { ModelProvider, useFetchModel } from './contexts/ModelContext';
+import { StorageProvider } from './contexts/StorageContext';
+import { useAsyncEffect } from './utils';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StorageProvider storageKey='objViewer'>
+      <ModelProvider>
+        <Through>
+          {() => {
+            /* eslint-disable react-hooks/rules-of-hooks */
+            const fetchModel = useFetchModel('teapot.obj');
+
+            useAsyncEffect(function* () {
+              const obj = yield fetchModel();
+
+              console.log(obj);
+            }, []);
+
+            return null;
+            /* eslint-enable react-hooks/rules-of-hooks */
+          }}
+        </Through>
+      </ModelProvider>
+    </StorageProvider>
   );
-}
+};
 
 export default App;

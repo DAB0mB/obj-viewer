@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Through from './components/helpers/Through';
 import { ModelProvider, useFetchModel } from './contexts/ModelContext';
 import { StorageProvider } from './contexts/StorageContext';
+import Face from './geometry/Face';
 import { useAsyncEffect } from './utils';
 
 const Viewport = styled.div`
@@ -25,7 +26,11 @@ const App = () => {
             useAsyncEffect(function* () {
               const obj = yield fetchModel();
 
-              console.log(obj);
+              const divs = obj.faces.slice(0, 3).map(vxs => new Face(...vxs).getView(1000));
+
+              for (let div of divs) {
+                viewportRef.current.append(div);
+              }
             }, []);
 
             return (

@@ -29,8 +29,14 @@ class Face extends Feature {
     return vecs;
   }
 
-  getCenter() {
-    throw Error('Face::getCenter() was not implemented');
+  // Source: https://stackoverflow.com/questions/1966587/given-3-points-how-do-i-calculate-the-normal-vector
+  getNormal() {
+    const [a, b, c] = this;
+    const dir = b.sub(a).mul(c.sub(a));
+    const mag = dir.getMagnitude();
+    const norm = dir.div([mag, mag, mag]);
+
+    return norm;
   }
 
   getView() {

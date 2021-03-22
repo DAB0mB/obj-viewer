@@ -7,9 +7,15 @@ import { StorageProvider } from './contexts/StorageContext';
 import Face from './geometry/Face';
 import { useAsyncEffect } from './utils';
 
-const Viewport = styled.div`
+const Container = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  `;
+
+const Viewport = styled.div`
   position: relative;
 `;
 
@@ -26,7 +32,7 @@ const App = () => {
             useAsyncEffect(function* () {
               const obj = yield fetchModel();
 
-              const divs = obj.faces.slice(0, 3).map(vxs => new Face(...vxs).getView(1000));
+              const divs = obj.faces.map(vxs => new Face(...vxs).getView(100));
 
               for (let div of divs) {
                 viewportRef.current.append(div);
@@ -34,7 +40,9 @@ const App = () => {
             }, []);
 
             return (
-              <Viewport ref={viewportRef} />
+              <Container>
+                <Viewport ref={viewportRef} />
+              </Container>
             );
             /* eslint-enable react-hooks/rules-of-hooks */
           }}

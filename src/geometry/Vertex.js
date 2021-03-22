@@ -14,11 +14,39 @@ class Vertex extends Feature {
     return Math.sqrt(prod);
   }
 
+  getMagnitude() {
+    return this.getDistance([0, 0, 0]);
+  }
+
   add(target) {
     return new Vertex(
       this[0] + target[0],
       this[1] + target[1],
       this[2] + target[2],
+    );
+  }
+
+  sub(target) {
+    return new Vertex(
+      this[0] - target[0],
+      this[1] - target[1],
+      this[2] - target[2],
+    );
+  }
+
+  mul(target) {
+    return new Vertex(
+      this[0] * target[0],
+      this[1] * target[1],
+      this[2] * target[2],
+    );
+  }
+
+  div(target) {
+    return new Vertex(
+      this[0] / target[0],
+      this[1] / target[1],
+      this[2] / target[2],
     );
   }
 }

@@ -1,4 +1,3 @@
-import { getDotProduct } from '../utils';
 import Feature from './Feature';
 import Vertex from './Vertex';
 
@@ -25,7 +24,7 @@ class Vector extends Feature {
   // Source: https://www.analyzemath.com/stepbystep_mathworksheets/vectors/vector3D_angle.html
   getAngle(target) {
     const absSelf = this.getAbsolute();
-    const absTarget = target.getAbsolute();
+    const absTarget = new Vector(...target).getAbsolute();
     let dotProd = 0;
 
     for (let i in absSelf) {

@@ -1,13 +1,19 @@
-import { toDeg } from '../utils';
 import Feature from './Feature';
 import Vector from './Vector';
 import Vertex from './Vertex';
 
 class Face extends Feature {
   constructor(...vxs) {
-    vxs = vxs.map(vx => new Vertex(...vx));
+    if (new.target !== Face) {
+      vxs = vxs.map(vx => new Vertex(...vx));
 
-    super(...vxs);
+      return super(...vxs);
+    }
+
+    switch (vxs.length) {
+      case 3: return new (require('./TriFace').default)(...vxs);
+      default: throw Error(`Face with ${vxs.length} vertecies not supported`);
+    }
   }
 
   getVectors() {
@@ -24,20 +30,7 @@ class Face extends Feature {
   }
 
   getView(scale = 1) {
-    const vecs = this.getVectors();
-    const right = vecs[1].getMagnitude() * Math.cos(toDeg(vecs[1].getAngle(vecs[0]))) * scale;
-    const left = vecs[2].getMagnitude() * Math.cos(toDeg(vecs[2].getAngle(vecs[0]))) * scale;
-    const height = vecs[1].getMagnitude() * Math.sin(toDeg(vecs[1].getAngle(vecs[0]))) * scale;
-
-    const div = document.createElement('div');
-
-    div.style.borderColor = 'blue transparent transparent';
-    div.style.borderWidth = `${height}px ${left}px 0 ${right}px`;
-    div.style.borderStyle = 'solid';
-    div.style.width = '0';
-    div.style.height = '0';
-
-    return div;
+    throw Error('Face::getView() was not implemented');
   }
 }
 

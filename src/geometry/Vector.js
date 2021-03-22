@@ -21,6 +21,16 @@ class Vector extends Feature {
     );
   }
 
+  getMiddle(ratio = .5) {
+    const abs = this.getAbsolute();
+
+    return new Vertex(
+      this[0][0] + abs[0] * ratio,
+      this[0][1] + abs[1] * ratio,
+      this[0][2] + abs[2] * ratio,
+    );
+  }
+
   // Source: https://www.analyzemath.com/stepbystep_mathworksheets/vectors/vector3D_angle.html
   getAngle(target) {
     const absSelf = this.getAbsolute();
@@ -32,10 +42,9 @@ class Vector extends Feature {
     }
 
     const magProd = this.getMagnitude() * target.getMagnitude();
-    const baseRad = Math.acos(dotProd / magProd) % Math.PI;
+    const rad = Math.acos(dotProd / magProd);
 
-    // We want to get an angle less or equal to .5rad
-    return Math.min(baseRad, Math.PI / 2 - baseRad % (Math.PI / 2));
+    return rad;
   }
 }
 

@@ -29,7 +29,11 @@ class Face extends Feature {
     return vecs;
   }
 
-  getView(scale = 1) {
+  getCenter() {
+    throw Error('Face::getCenter() was not implemented');
+  }
+
+  getView() {
     throw Error('Face::getView() was not implemented');
   }
 }

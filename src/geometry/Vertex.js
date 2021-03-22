@@ -13,6 +13,14 @@ class Vertex extends Feature {
 
     return Math.sqrt(prod);
   }
+
+  add(target) {
+    return new Vertex(
+      this[0] + target[0],
+      this[1] + target[1],
+      this[2] + target[2],
+    );
+  }
 }
 
 export default Vertex;

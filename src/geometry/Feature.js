@@ -1,6 +1,6 @@
 class Feature extends Array {
-  getView() {
-    throw Error('Feature::getView() was not implemented');
+  getMeshes() {
+    throw Error('Feature::getMeshes() was not implemented');
   }
 }
 

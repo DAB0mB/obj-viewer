@@ -38,10 +38,6 @@ class Face extends Feature {
 
     return norm;
   }
-
-  getView() {
-    throw Error('Face::getView() was not implemented');
-  }
 }
 
 export default Face;

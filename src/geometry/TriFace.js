@@ -18,7 +18,7 @@ class TriFace extends Face {
     ];
   }
 
-  getView(scale) {
+  getMeshes(scale) {
     const edges = this.getEdges();
 
     const right = Math.abs(edges[1].getMagnitude() * Math.cos(toDeg(edges[1].getAngle(edges[0]))));
@@ -48,7 +48,7 @@ class TriFace extends Face {
     div.style.left = '0';
     div.style.top = '0';
 
-    return div;
+    return [div];
   }
 }
 

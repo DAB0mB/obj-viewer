@@ -30,7 +30,7 @@ const App = () => {
 
             useAsyncEffect(function* () {
               const obj = yield fetchModel();
-              const divs = obj.getView(100);
+              const divs = obj.getMeshes(100);
 
               for (let div of divs) {
                 viewportRef.current.append(div);

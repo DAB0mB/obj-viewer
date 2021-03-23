@@ -8,11 +8,11 @@ class Object extends Feature {
     super(...faces);
   }
 
-  getView(scale) {
+  getMeshes(scale) {
     const views = [];
 
     for (let f of this) {
-      views.push(f.getView(scale));
+      views.push(...f.getMeshes(scale));
     }
 
     return views;

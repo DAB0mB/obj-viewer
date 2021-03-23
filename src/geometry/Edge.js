@@ -1,7 +1,7 @@
 import Feature from './Feature';
 import Vertex from './Vertex';
 
-class Vector extends Feature {
+class Edge extends Feature {
   constructor(vx1, vx2) {
     vx1 = new Vertex(...vx1);
     vx2 = new Vertex(...vx2);
@@ -34,7 +34,7 @@ class Vector extends Feature {
   // Source: https://www.analyzemath.com/stepbystep_mathworksheets/vectors/vector3D_angle.html
   getAngle(target) {
     const absSelf = this.getAbsolute();
-    const absTarget = new Vector(...target).getAbsolute();
+    const absTarget = new Edge(...target).getAbsolute();
     let dotProd = 0;
 
     for (let i in absSelf) {
@@ -48,4 +48,4 @@ class Vector extends Feature {
   }
 }
 
-export default Vector;
+export default Edge;

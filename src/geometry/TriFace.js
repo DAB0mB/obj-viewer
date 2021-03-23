@@ -1,39 +1,38 @@
 import { toDeg } from '../utils';
 import Face from './Face';
-import Vector from './Vector';
-import Vertex from './Vertex';
+import Edge from './Edge';
 
 class TriFace extends Face {
-  getVectors() {
-    const vecs = super.getVectors();
+  getEdges() {
+    const edges = super.getEdges();
 
-    const magnitudes = vecs.map(vec => vec.getMagnitude());
+    const magnitudes = edges.map(edge => edge.getMagnitude());
     const maxMagnitude = Math.max(...magnitudes);
     const maxIndex = magnitudes.indexOf(maxMagnitude);
 
     return [
       // Max has to be first for DIV to be formed correctly
-      vecs[maxIndex],
-      vecs[(maxIndex + 1) % 3],
-      vecs[(maxIndex + 2) % 3],
+      edges[maxIndex],
+      edges[(maxIndex + 1) % 3],
+      edges[(maxIndex + 2) % 3],
     ];
   }
 
   getView(scale) {
-    const vecs = this.getVectors();
+    const edges = this.getEdges();
 
-    const right = Math.abs(vecs[1].getMagnitude() * Math.cos(toDeg(vecs[1].getAngle(vecs[0]))));
-    const left = Math.abs(vecs[2].getMagnitude() * Math.cos(toDeg(vecs[2].getAngle(vecs[0]))));
-    const height = Math.abs(vecs[1].getMagnitude() * Math.sin(toDeg(vecs[1].getAngle(vecs[0]))));
+    const right = Math.abs(edges[1].getMagnitude() * Math.cos(toDeg(edges[1].getAngle(edges[0]))));
+    const left = Math.abs(edges[2].getMagnitude() * Math.cos(toDeg(edges[2].getAngle(edges[0]))));
+    const height = Math.abs(edges[1].getMagnitude() * Math.sin(toDeg(edges[1].getAngle(edges[0]))));
 
     let center;
     {
       const ratio = left / (right + left);
-      const midBase = vecs[0].getMiddle(ratio);
-      const delta = new Vector(midBase, vecs[1][1]).getAbsolute();
-      const corner = vecs[0][1].add(delta);
+      const midBase = edges[0].getMiddle(ratio);
+      const delta = new Edge(midBase, edges[1][1]).getAbsolute();
+      const corner = edges[0][1].add(delta);
 
-      center = new Vector(vecs[0][0], corner).getMiddle();
+      center = new Edge(edges[0][0], corner).getMiddle();
     }
 
     const div = document.createElement('div');

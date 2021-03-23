@@ -1,5 +1,5 @@
 import Feature from './Feature';
-import Vector from './Vector';
+import Edge from './Edge';
 import Vertex from './Vertex';
 
 class Face extends Feature {
@@ -16,14 +16,14 @@ class Face extends Feature {
     }
   }
 
-  getVectors() {
+  getEdges() {
     const vecs = [];
 
     for (let i in this) {
       const vx1 = this[i];
       const vx2 = this[(i + 1) % this.length];
 
-      vecs.push(new Vector(vx1, vx2));
+      vecs.push(new Edge(vx1, vx2));
     }
 
     return vecs;

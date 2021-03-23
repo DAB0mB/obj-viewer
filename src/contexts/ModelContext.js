@@ -1,5 +1,6 @@
 import React, { createContext } from 'react';
 
+import Object from '../geometry/Object';
 import { parseObj } from '../parsers';
 import { useAsyncCallback, useObj } from '../utils';
 import { StorageProvider, useLocalStorage } from './StorageContext';
@@ -27,14 +28,18 @@ export const useFetchModel = (modelPath) => {
     let str = localStorage.getItem(modelPath);
 
     if (str) {
-      return parseObj(str);
+      const { faces } = parseObj(str);
+
+      return new Object(...faces);
     }
 
     const res = yield fetch(`/models/${modelPath}`);
     str = yield res.text();
     localStorage.setItem(modelPath, str);
 
-    return parseObj(str);
+    const { faces } = parseObj(str);
+
+    return new Object(...faces);
   }, [localStorage]);
 
   return fetchModel;

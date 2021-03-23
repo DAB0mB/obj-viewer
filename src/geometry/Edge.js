@@ -31,20 +31,17 @@ class Edge extends Feature {
     );
   }
 
-  // Source: https://www.analyzemath.com/stepbystep_mathworksheets/vectors/vector3D_angle.html
+  getRotation() {
+    const abs = this.getAbsolute();
+
+    return abs.getRotation();
+  }
+
   getAngle(target) {
     const absSelf = this.getAbsolute();
     const absTarget = new Edge(...target).getAbsolute();
-    let dotProd = 0;
 
-    for (let i in absSelf) {
-      dotProd += absSelf[i] * absTarget[i];
-    }
-
-    const magProd = this.getMagnitude() * target.getMagnitude();
-    const rad = Math.acos(dotProd / magProd);
-
-    return rad;
+    return absSelf.getAngle(absTarget);
   }
 }
 

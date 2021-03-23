@@ -20,6 +20,7 @@ class TriFace extends Face {
 
   getMeshes(scale) {
     const edges = this.getEdges();
+    const rotation = this.getNormal().getRotation();
 
     const right = Math.abs(edges[1].getMagnitude() * Math.cos(toDeg(edges[1].getAngle(edges[0]))));
     const left = Math.abs(edges[2].getMagnitude() * Math.cos(toDeg(edges[2].getAngle(edges[0]))));
@@ -41,7 +42,7 @@ class TriFace extends Face {
     div.style.position = 'absolute';
     div.style.borderColor = 'transparent transparent blue';
     div.style.borderWidth = `0 ${right * scale}px ${height * scale}px ${left * scale}px`;
-    div.style.transform = `translate3d(${center[0] * scale}px, ${center[1] * scale}px, ${center[2] * scale}px)`;
+    div.style.transform = `translate3d(${center[0] * scale}px, ${center[1] * scale}px, ${center[2] * scale}px) rotate(-${rotation[2]}rad) rotateY(-${rotation[1]}rad) rotateX(-${rotation[0]}rad)`;
     div.style.borderStyle = 'solid';
     div.style.width = '0';
     div.style.height = '0';
